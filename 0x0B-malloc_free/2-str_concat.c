@@ -1,48 +1,41 @@
 #include "main.h"
+#include <stdlib.h>
+
 /**
- *_strlen - count arrray
- *@s: array of elements
- *Return: i
+ *str_concat - back a pointer to array
+ *@s1: Array one
+ *@s2: Array two
+ *Return: Always an array dinamic
  */
-
-int _strlen(char *s)
-{
-	unsigned int i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
 
 char *str_concat(char *s1, char *s2)
 {
-	char *dst;
-	unsigned int i, j, size;
+	int size;
+	int size2;
+	int i, j;
+	char *array;
 
-	if (s1 == NULL)
+	if (!s1)
 		s1 = "";
-	if (s2 == NULL)
+	if (!s2)
 		s2 = "";
+	for (size = 0; s1[size] != '\0'; size++)
+		;
+	for (size2 = 0; s2[size2] != '\0'; size2++)
+		;
+	array = malloc(((size) + (size2 + 1)) * sizeof(char));
 
-	size = (_strlen(s1) + _strlen(s2) + 1);
-
-	dst = (char *) malloc(size * sizeof(char));
-
-	if (dst == 0)
+	if (!array)
 	{
 		return (NULL);
 	}
-
-	for (i = 0; *(s1 + i) != '\0'; i++)
-		*(dst + i) = *(s1 + i);
-
-	for (j = 0; *(s2 + j) != '\0'; j++)
+	for (i = 0; i < size; i++)
 	{
-		*(dst + i) = *(s2 + j);
-		i++;
+		array[i] = s1[i];
 	}
-	return (dst);
+	for (j = 0; j < (size2 + 1); j++)
+	{
+		array[i + j] = s2[j];
+	}
+	return (array);
 }
